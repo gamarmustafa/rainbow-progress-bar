@@ -1,0 +1,30 @@
+<idea-plugin>
+    <id>com.example.rainbow.progressbar</id>
+    <name>Rainbow Progress Bar</name>
+    <vendor email="qemerrr@gmail.com">qemerrr</vendor>
+
+    <description><![CDATA[
+        Replaces the boring stock progress bars with animated rainbow ones.
+        Like the famous Nyan Cat progress bar &mdash; but without the cat,
+        just pure scrolling rainbow goodness.
+        <br/><br/>
+        Works in the status bar, dialogs, the indexing bar, Gradle sync,
+        and everywhere else the IDE shows progress.
+    ]]></description>
+
+    <!-- Works in any IntelliJ-based IDE (Android Studio, IDEA, etc.) -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <applicationListeners>
+        <listener
+            class="com.example.rainbow.RainbowProgressBarActivator"
+            topic="com.intellij.ide.AppLifecycleListener"/>
+    </applicationListeners>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Re-applies the UI after a theme / LaF change, since that resets
+             the ProgressBarUI back to the platform default. -->
+        <applicationService
+            serviceImplementation="com.example.rainbow.RainbowLafTracker"/>
+    </extensions>
+</idea-plugin>
