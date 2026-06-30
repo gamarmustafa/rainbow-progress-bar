@@ -38,21 +38,23 @@ public final class RainbowProgressBarUI extends DarculaProgressBarUI {
     private static final long TEXT_SCROLL_MS = 18L;  // ms per px the text travels
     private static final int TEXT_PADDING = 4;       // extra vertical room for text
 
-    // Quirky marquee messages, cycled one per pass whenever the progress bar
-    // has no status text of its own.
+    // Quirky marquee messages, cycled one per pass.
     private static final String[] PHRASES = {
             "COMPILING... PROBABLY",
             "SUMMONING BYTES",
-            "RETICULATING SPLINES",
             "IT WORKS ON MY MACHINE",
-            "YAK SHAVING IN PROGRESS",
             "TRUST THE PROCESS",
             "ALMOST THERE (TOTALLY LYING)",
             "DON'T PANIC",
             "BRB OPTIMIZING VIBES",
             "MAKING IT WORK... ISH",
             "HEROICALLY DOING NOTHING",
+            "TURNING IT OFF AND ON AGAIN",
+            "DOWNLOADING MORE RAM",
             "99 LITTLE BUGS IN THE CODE...",
+            "CONSULTING THE RUBBER DUCK",
+            "PLEASE WAIT... OR DON'T",
+            "REBUILDING... FOR SOME REASON",
     };
 
     // Marquee rotation state (one UI instance exists per progress bar).
