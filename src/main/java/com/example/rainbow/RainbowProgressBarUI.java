@@ -17,8 +17,8 @@ import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
 
 /**
- * A progress bar UI that paints a scrolling rainbow with a marquee label
- * ("BUILDING…") rolling horizontally across it.
+ * A progress bar UI that paints a scrolling rainbow with a marquee of quirky
+ * messages rolling horizontally across it.
  *
  * <p>Inspired by the Nyan Cat progress bar plugin, minus the cat. We extend
  * {@link DarculaProgressBarUI} so we inherit its layout maths and, importantly,
@@ -36,8 +36,28 @@ public final class RainbowProgressBarUI extends DarculaProgressBarUI {
     private static final float BAND_PERIOD = 140f;   // px for one full rainbow cycle
 
     private static final long TEXT_SCROLL_MS = 18L;  // ms per px the text travels
-    private static final String DEFAULT_TEXT = "BUILDING";
     private static final int TEXT_PADDING = 4;       // extra vertical room for text
+
+    // Quirky marquee messages, cycled one per pass whenever the progress bar
+    // has no status text of its own.
+    private static final String[] PHRASES = {
+            "COMPILING... PROBABLY",
+            "SUMMONING BYTES",
+            "RETICULATING SPLINES",
+            "IT WORKS ON MY MACHINE",
+            "YAK SHAVING IN PROGRESS",
+            "TRUST THE PROCESS",
+            "ALMOST THERE (TOTALLY LYING)",
+            "DON'T PANIC",
+            "BRB OPTIMIZING VIBES",
+            "MAKING IT WORK... ISH",
+            "HEROICALLY DOING NOTHING",
+            "99 LITTLE BUGS IN THE CODE...",
+    };
+
+    // Marquee rotation state (one UI instance exists per progress bar).
+    private int phraseIndex = 0;
+    private long lastTravelled = -1L;
 
     private static final Color[] RAINBOW = {
             new Color(0xFF595E), // red
@@ -138,8 +158,22 @@ public final class RainbowProgressBarUI extends DarculaProgressBarUI {
 
     private void paintScrollingText(Graphics2D g2, JComponent c,
                                     int x, int y, int barWidth, int barHeight) {
-        String text = labelText();
-        if (text.isEmpty() || barWidth <= 0) {
+        if (barWidth <= 0) {
+            return;
+        }
+
+        // Prefer the bar's own status text; otherwise cycle the quirky phrases.
+        boolean usingBarString = false;
+        String text;
+        JProgressBar bar = progressBar;
+        String barString = (bar != null && bar.isStringPainted()) ? bar.getString() : null;
+        if (barString != null && !barString.trim().isEmpty()) {
+            text = barString.trim();
+            usingBarString = true;
+        } else {
+            text = PHRASES[Math.floorMod(phraseIndex, PHRASES.length)];
+        }
+        if (text.isEmpty()) {
             return;
         }
 
@@ -155,24 +189,21 @@ public final class RainbowProgressBarUI extends DarculaProgressBarUI {
         int textX = (int) (x + barWidth - travelled);
         int baseline = y + (barHeight - fm.getHeight()) / 2 + fm.getAscent();
 
+        // Advance to the next phrase once per pass, while the text is off-screen,
+        // so the swap is never visible mid-bar.
+        if (!usingBarString) {
+            if (lastTravelled >= 0 && travelled < lastTravelled) {
+                phraseIndex++;
+            }
+            lastTravelled = travelled;
+        }
+
         // Dark shadow first, then bright text, so it stays legible over any
         // rainbow colour underneath.
         g2.setColor(new Color(0, 0, 0, 140));
         g2.drawString(text, textX + 1, baseline + 1);
         g2.setColor(Color.WHITE);
         g2.drawString(text, textX, baseline);
-    }
-
-    /** The marquee text: the bar's own string if it has one, else "BUILDING". */
-    private String labelText() {
-        JProgressBar bar = progressBar;
-        if (bar != null && bar.isStringPainted()) {
-            String s = bar.getString();
-            if (s != null && !s.trim().isEmpty()) {
-                return s.trim();
-            }
-        }
-        return DEFAULT_TEXT;
     }
 
     private static Font barFont(JComponent c) {
