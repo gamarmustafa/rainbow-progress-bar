@@ -162,20 +162,9 @@ public final class RainbowProgressBarUI extends DarculaProgressBarUI {
             return;
         }
 
-        // Prefer the bar's own status text; otherwise cycle the quirky phrases.
-        boolean usingBarString = false;
-        String text;
-        JProgressBar bar = progressBar;
-        String barString = (bar != null && bar.isStringPainted()) ? bar.getString() : null;
-        if (barString != null && !barString.trim().isEmpty()) {
-            text = barString.trim();
-            usingBarString = true;
-        } else {
-            text = PHRASES[Math.floorMod(phraseIndex, PHRASES.length)];
-        }
-        if (text.isEmpty()) {
-            return;
-        }
+        // Always show the quirky phrases, even when the IDE set its own status
+        // text — the whole point is funny text instead of "Building...".
+        String text = PHRASES[Math.floorMod(phraseIndex, PHRASES.length)];
 
         Font font = barFont(c);
         g2.setFont(font);
@@ -191,12 +180,10 @@ public final class RainbowProgressBarUI extends DarculaProgressBarUI {
 
         // Advance to the next phrase once per pass, while the text is off-screen,
         // so the swap is never visible mid-bar.
-        if (!usingBarString) {
-            if (lastTravelled >= 0 && travelled < lastTravelled) {
-                phraseIndex++;
-            }
-            lastTravelled = travelled;
+        if (lastTravelled >= 0 && travelled < lastTravelled) {
+            phraseIndex++;
         }
+        lastTravelled = travelled;
 
         // Dark shadow first, then bright text, so it stays legible over any
         // rainbow colour underneath.
