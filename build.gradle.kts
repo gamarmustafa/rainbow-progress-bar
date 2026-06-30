@@ -6,8 +6,11 @@ plugins {
 
 group = "com.example.rainbow"
 
-// Use the current git branch as the version, so the built artifact is named
-// "<rootProject.name>-<branch>.zip" (e.g. progress-bar-scrolling-text.zip).
+// Version resolution:
+//  - Release builds pass an explicit semver via `-PpluginVersion=1.0.0` (or the
+//    PLUGIN_VERSION env var) -> artifact is progress-bar-1.0.0.zip.
+//  - Local/dev builds fall back to the current git branch name
+//    -> artifact is progress-bar-<branch>.zip (e.g. progress-bar-main.zip).
 // providers.exec is configuration-cache friendly; "/" in branch names is
 // replaced so the result is filename-safe.
 val gitBranch: Provider<String> = providers.exec {
@@ -15,7 +18,10 @@ val gitBranch: Provider<String> = providers.exec {
     isIgnoreExitValue = true
 }.standardOutput.asText.map { it.trim().replace('/', '-') }.map { it.ifEmpty { "dev" } }
 
-version = gitBranch.getOrElse("dev")
+val releaseVersion: Provider<String> = providers.gradleProperty("pluginVersion")
+    .orElse(providers.environmentVariable("PLUGIN_VERSION"))
+
+version = releaseVersion.orElse(gitBranch).getOrElse("dev")
 
 repositories {
     mavenCentral()
