@@ -5,7 +5,17 @@ plugins {
 }
 
 group = "com.example.rainbow"
-version = "1.0.0"
+
+// Use the current git branch as the version, so the built artifact is named
+// "<rootProject.name>-<branch>.zip" (e.g. progress-bar-scrolling-text.zip).
+// providers.exec is configuration-cache friendly; "/" in branch names is
+// replaced so the result is filename-safe.
+val gitBranch: Provider<String> = providers.exec {
+    commandLine("git", "rev-parse", "--abbrev-ref", "HEAD")
+    isIgnoreExitValue = true
+}.standardOutput.asText.map { it.trim().replace('/', '-') }.map { it.ifEmpty { "dev" } }
+
+version = gitBranch.getOrElse("dev")
 
 repositories {
     mavenCentral()

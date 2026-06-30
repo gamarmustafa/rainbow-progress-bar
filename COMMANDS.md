@@ -22,7 +22,8 @@ sandbox window when you're done.
 ./gradlew buildPlugin
 ```
 
-Produces `build/distributions/rainbow-progress-bar-1.0.0.zip`.
+Produces `build/distributions/progress-bar-<branch>.zip` (the version is the
+current git branch name, e.g. `progress-bar-main.zip`).
 Install it via **Settings → Plugins → ⚙️ → Install Plugin from Disk…**, pick the
 zip, then restart.
 

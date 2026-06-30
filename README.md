@@ -26,7 +26,8 @@ scrolls smoothly.
 ./gradlew buildPlugin
 ```
 
-The installable zip lands in `build/distributions/rainbow-progress-bar-<version>.zip`.
+The installable zip lands in `build/distributions/progress-bar-<branch>.zip`
+(the version is taken from the current git branch name).
 
 The build requires a **JDK 21** to run Gradle and a matching toolchain to compile
 (the Foojay resolver in `settings.gradle.kts` can auto-download the toolchain).
