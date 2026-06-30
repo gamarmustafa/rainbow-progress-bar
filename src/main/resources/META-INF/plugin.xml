@@ -16,15 +16,14 @@
     <depends>com.intellij.modules.platform</depends>
 
     <applicationListeners>
+        <!-- Install the rainbow UI once the IDE frame exists. -->
         <listener
             class="com.example.rainbow.RainbowProgressBarActivator"
             topic="com.intellij.ide.AppLifecycleListener"/>
+        <!-- A theme / Look-and-Feel switch resets ProgressBarUI to the platform
+             default, so re-apply ours whenever the LaF changes. -->
+        <listener
+            class="com.example.rainbow.RainbowProgressBarActivator"
+            topic="com.intellij.ide.ui.LafManagerListener"/>
     </applicationListeners>
-
-    <extensions defaultExtensionNs="com.intellij">
-        <!-- Re-applies the UI after a theme / LaF change, since that resets
-             the ProgressBarUI back to the platform default. -->
-        <applicationService
-            serviceImplementation="com.example.rainbow.RainbowLafTracker"/>
-    </extensions>
 </idea-plugin>

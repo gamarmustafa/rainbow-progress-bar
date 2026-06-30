@@ -1,7 +1,7 @@
 plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "2.0.21"
-    id("org.jetbrains.intellij.platform") version "2.2.1"
+    id("org.jetbrains.intellij.platform") version "2.10.0"
 }
 
 group = "com.example.rainbow"
@@ -33,6 +33,10 @@ dependencies {
 }
 
 intellijPlatform {
+    // This plugin has no settings UI, so skip booting a headless IDE to index
+    // searchable options — it's the slowest part of the build.
+    buildSearchableOptions = false
+
     pluginConfiguration {
         ideaVersion {
             sinceBuild = "242"
