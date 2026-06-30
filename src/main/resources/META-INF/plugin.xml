@@ -1,5 +1,5 @@
 <idea-plugin>
-    <id>com.example.rainbow.progressbar</id>
+    <id>io.almabaw.progressbar</id>
     <name>Rainbow Progress Bar</name>
     <vendor email="qemerrr@gmail.com">qemerrr</vendor>
 
