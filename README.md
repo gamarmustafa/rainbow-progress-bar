@@ -50,6 +50,12 @@ long task (open a project, run a Gradle sync) to watch the rainbow.
 
 ## Install into your own Android Studio
 
+The easiest way is straight from the
+[JetBrains Marketplace](https://plugins.jetbrains.com/plugin/32573-sassy-progress-bar):
+in the IDE, `Settings → Plugins → Marketplace`, search for **Sassy Progress
+Bar**, and install.
+
+To install a locally built zip instead:
 `Settings → Plugins → ⚙ → Install Plugin from Disk…` and pick the built zip.
 
 ## ⚠️ Matching your Android Studio version
