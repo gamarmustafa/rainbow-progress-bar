@@ -4,16 +4,17 @@
     <vendor email="qemerrr@gmail.com">qemerrr</vendor>
 
     <description><![CDATA[
-        Replaces the boring stock progress bars with animated rainbow ones.
-        Like the famous Nyan Cat progress bar &mdash; but without the cat,
-        just pure scrolling rainbow goodness.
+        Your progress bars are grey. Grey! Fix that: this plugin repaints
+        every progress bar as a smoothly scrolling rainbow with quirky
+        one-liners marching across it &mdash; <i>SUMMONING BYTES</i>,
+        <i>DOWNLOADING MORE RAM</i>, <i>ALMOST THERE (TOTALLY LYING)</i>...
         <br/><br/>
-        Works in the status bar, dialogs, the indexing bar, Gradle sync,
-        and everywhere else the IDE shows progress.
+        Indexing, Gradle sync, the status bar, dialogs &mdash; wherever the
+        IDE makes you wait, at least now the wait is fabulous.
         <br/><br/>
-        The quirky marquee messages scrolling across the bar are fully
-        editable in <b>Settings &gt; Appearance &amp; Behavior &gt;
-        Rainbow Progress Bar</b>.
+        Not feeling our jokes? Write your own! Every phrase is editable in
+        <b>Settings &gt; Appearance &amp; Behavior &gt; Rainbow Progress
+        Bar</b>.
     ]]></description>
 
     <!-- Works in any IntelliJ-based IDE (Android Studio, IDEA, etc.) -->
