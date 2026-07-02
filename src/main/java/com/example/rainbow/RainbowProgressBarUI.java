@@ -59,7 +59,7 @@ public final class RainbowProgressBarUI extends DarculaProgressBarUI {
 
     // Marquee rotation state (one UI instance exists per progress bar).
     private int phraseIndex = 0;
-    private long lastTravelled = -1L;
+    private long passStartMs = -1L;
 
     private static final Color[] RAINBOW = {
             new Color(0xFF595E), // red
@@ -174,18 +174,26 @@ public final class RainbowProgressBarUI extends DarculaProgressBarUI {
         int textWidth = fm.stringWidth(text);
 
         // The text enters from the right edge, slides left until it fully exits,
-        // then loops back — a continuous marquee.
+        // then loops back — a continuous marquee. Each pass is anchored to its
+        // own start time (rather than raw clock modulo) so every phrase begins
+        // off-screen at the right edge, no matter how wide it is.
+        long now = System.currentTimeMillis();
+        if (passStartMs < 0) {
+            passStartMs = now;
+        }
         long loopSpan = barWidth + textWidth;
-        long travelled = (System.currentTimeMillis() / TEXT_SCROLL_MS) % loopSpan;
+        long travelled = (now - passStartMs) / TEXT_SCROLL_MS;
+        if (travelled >= loopSpan) {
+            // The phrase has fully exited on the left: swap to the next one and
+            // restart the pass from the right edge.
+            phraseIndex++;
+            passStartMs = now;
+            travelled = 0;
+            text = PHRASES[Math.floorMod(phraseIndex, PHRASES.length)];
+            textWidth = fm.stringWidth(text);
+        }
         int textX = (int) (x + barWidth - travelled);
         int baseline = y + (barHeight - fm.getHeight()) / 2 + fm.getAscent();
-
-        // Advance to the next phrase once per pass, while the text is off-screen,
-        // so the swap is never visible mid-bar.
-        if (lastTravelled >= 0 && travelled < lastTravelled) {
-            phraseIndex++;
-        }
-        lastTravelled = travelled;
 
         // Dark shadow first, then bright text, so it stays legible over any
         // rainbow colour underneath.
