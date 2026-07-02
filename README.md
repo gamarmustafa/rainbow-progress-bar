@@ -1,8 +1,9 @@
-# 🌈 Rainbow Progress Bar
+# 🌈 Sassy Progress Bar
 
 An Android Studio / IntelliJ plugin that replaces the stock progress bars with
-animated scrolling rainbows — like the famous Nyan Cat progress bar, but without
-the cat. Just pure rainbow.
+animated scrolling rainbows, topped with a marquee of quirky one-liners
+("DOWNLOADING MORE RAM", "ALMOST THERE (TOTALLY LYING)", …). The phrases are
+editable in *Settings → Appearance & Behavior → Sassy Progress Bar*.
 
 It hooks every `JProgressBar` in the IDE: the status-bar progress, indexing,
 Gradle sync, dialogs, etc.
