@@ -38,25 +38,6 @@ public final class RainbowProgressBarUI extends DarculaProgressBarUI {
     private static final long TEXT_SCROLL_MS = 18L;  // ms per px the text travels
     private static final int TEXT_PADDING = 4;       // extra vertical room for text
 
-    // Quirky marquee messages, cycled one per pass.
-    private static final String[] PHRASES = {
-            "COMPILING... PROBABLY",
-            "SUMMONING BYTES",
-            "IT WORKS ON MY MACHINE",
-            "TRUST THE PROCESS",
-            "ALMOST THERE (TOTALLY LYING)",
-            "DON'T PANIC",
-            "BRB OPTIMIZING VIBES",
-            "MAKING IT WORK... ISH",
-            "HEROICALLY DOING NOTHING",
-            "TURNING IT OFF AND ON AGAIN",
-            "DOWNLOADING MORE RAM",
-            "99 LITTLE BUGS IN THE CODE...",
-            "CONSULTING THE RUBBER DUCK",
-            "PLEASE WAIT... OR DON'T",
-            "REBUILDING... FOR SOME REASON",
-    };
-
     // Marquee rotation state (one UI instance exists per progress bar).
     private int phraseIndex = 0;
     private long passStartMs = -1L;
@@ -166,7 +147,10 @@ public final class RainbowProgressBarUI extends DarculaProgressBarUI {
 
         // Always show the quirky phrases, even when the IDE set its own status
         // text — the whole point is funny text instead of "Building...".
-        String text = PHRASES[Math.floorMod(phraseIndex, PHRASES.length)];
+        // The list is user-editable in Settings; never empty (falls back to
+        // the defaults).
+        String[] phrases = RainbowSettings.getInstance().effectivePhrases();
+        String text = phrases[Math.floorMod(phraseIndex, phrases.length)];
 
         Font font = barFont(c);
         g2.setFont(font);
@@ -189,7 +173,7 @@ public final class RainbowProgressBarUI extends DarculaProgressBarUI {
             phraseIndex++;
             passStartMs = now;
             travelled = 0;
-            text = PHRASES[Math.floorMod(phraseIndex, PHRASES.length)];
+            text = phrases[Math.floorMod(phraseIndex, phrases.length)];
             textWidth = fm.stringWidth(text);
         }
         int textX = (int) (x + barWidth - travelled);

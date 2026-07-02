@@ -49,8 +49,9 @@ dependencies {
 }
 
 intellijPlatform {
-    // This plugin has no settings UI, so skip booting a headless IDE to index
-    // searchable options — it's the slowest part of the build.
+    // Skip booting a headless IDE to index searchable options — it's the
+    // slowest part of the build. The settings page is still reachable by its
+    // display name in the Settings search; only its inner labels won't be.
     buildSearchableOptions = false
 
     pluginConfiguration {

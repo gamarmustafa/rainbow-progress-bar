@@ -10,10 +10,22 @@
         <br/><br/>
         Works in the status bar, dialogs, the indexing bar, Gradle sync,
         and everywhere else the IDE shows progress.
+        <br/><br/>
+        The quirky marquee messages scrolling across the bar are fully
+        editable in <b>Settings &gt; Appearance &amp; Behavior &gt;
+        Rainbow Progress Bar</b>.
     ]]></description>
 
     <!-- Works in any IntelliJ-based IDE (Android Studio, IDEA, etc.) -->
     <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationConfigurable
+            parentId="appearance"
+            id="com.example.rainbow.settings"
+            displayName="Rainbow Progress Bar"
+            instance="com.example.rainbow.RainbowSettingsConfigurable"/>
+    </extensions>
 
     <applicationListeners>
         <!-- Install the rainbow UI once the IDE frame exists. -->
