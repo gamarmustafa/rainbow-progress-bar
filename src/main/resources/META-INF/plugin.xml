@@ -1,6 +1,6 @@
 <idea-plugin>
     <id>io.almabaw.progressbar</id>
-    <name>Rainbow Progress Bar</name>
+    <name>Sassy Progress Bar</name>
     <vendor email="qemerrr@gmail.com">qemerrr</vendor>
 
     <description><![CDATA[
@@ -13,7 +13,7 @@
         IDE makes you wait, at least now the wait is fabulous.
         <br/><br/>
         Not feeling our jokes? Write your own! Every phrase is editable in
-        <b>Settings &gt; Appearance &amp; Behavior &gt; Rainbow Progress
+        <b>Settings &gt; Appearance &amp; Behavior &gt; Sassy Progress
         Bar</b>.
     ]]></description>
 
@@ -24,7 +24,7 @@
         <applicationConfigurable
             parentId="appearance"
             id="com.example.rainbow.settings"
-            displayName="Rainbow Progress Bar"
+            displayName="Sassy Progress Bar"
             instance="com.example.rainbow.RainbowSettingsConfigurable"/>
     </extensions>
 

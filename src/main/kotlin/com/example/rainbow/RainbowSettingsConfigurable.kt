@@ -11,14 +11,14 @@ import javax.swing.JComponent
 import javax.swing.JPanel
 
 /**
- * Settings page (Settings > Appearance & Behavior > Rainbow Progress Bar)
+ * Settings page (Settings > Appearance & Behavior > Sassy Progress Bar)
  * where users edit the marquee phrases, one per line.
  */
 class RainbowSettingsConfigurable : Configurable {
 
     private var textArea: JBTextArea? = null
 
-    override fun getDisplayName(): String = "Rainbow Progress Bar"
+    override fun getDisplayName(): String = "Sassy Progress Bar"
 
     override fun createComponent(): JComponent {
         val area = JBTextArea(15, 50)
