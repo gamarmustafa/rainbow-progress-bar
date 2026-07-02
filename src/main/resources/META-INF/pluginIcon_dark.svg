@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <defs>
+    <linearGradient id="rainbow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FF595E"/>
+      <stop offset="0.2" stop-color="#FF924C"/>
+      <stop offset="0.4" stop-color="#FFCA3A"/>
+      <stop offset="0.6" stop-color="#8AC926"/>
+      <stop offset="0.8" stop-color="#1982C4"/>
+      <stop offset="1" stop-color="#6A4C93"/>
+    </linearGradient>
+  </defs>
+  <!-- track -->
+  <rect x="3" y="14" width="34" height="12" rx="6" fill="#FFFFFF" opacity="0.18"/>
+  <!-- rainbow fill, partially complete like a progress bar -->
+  <rect x="3" y="14" width="27" height="12" rx="6" fill="url(#rainbow)"/>
+</svg>
