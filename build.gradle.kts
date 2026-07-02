@@ -60,6 +60,13 @@ intellijPlatform {
             untilBuild = provider { null } // no upper bound
         }
     }
+
+    publishing {
+        // Marketplace token. Lives in ~/.gradle/gradle.properties (user-level,
+        // never in the repo); the env var fallback is for CI.
+        token = providers.gradleProperty("intellijPublishToken")
+            .orElse(providers.environmentVariable("PUBLISH_TOKEN"))
+    }
 }
 
 kotlin {
